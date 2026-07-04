@@ -636,22 +636,26 @@ document.addEventListener('keydown', (e) => {
 function enviarPedido(){
   const itens = Object.entries(carrinho).map(([id,q]) => ({ ...PRODUTOS.find(p => p.id === +id), qtd:q })).filter(i => i.qtd > 0);
   if (itens.length === 0) return;
-  let msg = "*Novo pedido — Site Lubachesky*\n\n";
-  itens.forEach(i => { msg += `• ${i.qtd}x ${i.nome} (${i.un}) — ${real(i.preco)} = ${real(i.preco * i.qtd)}\n`; });
-  msg += `\n*Total: ${real(totalValorCarrinho())}*`;
+
+  let msg = "Olá, vim pelo site! Gostaria de fazer o pedido abaixo:\n\n";
+  itens.forEach(i => {
+    const linha = `${i.qtd}x ${i.nome} (${i.un}) – ${real(i.preco)}`;
+    msg += i.qtd > 1 ? `${linha} cada, total ${real(i.preco * i.qtd)}\n` : `${linha}\n`;
+  });
+  msg += `\n*Total: ${real(totalValorCarrinho())}*\n\n`;
 
   if (formaEntrega === 'entrega'){
-    msg += `\n\n*Forma de recebimento:* 🚚 Entrega em casa`;
+    msg += `Entrega em casa\n`;
     const end = document.getElementById('enderecoEntrega');
-    if (end && end.value.trim()) msg += `\n*Endereço:* ${end.value.trim()}`;
-    else msg += `\n_(endereço a combinar)_`;
+    msg += end && end.value.trim() ? `${end.value.trim()}\n\n` : `Endereço a combinar\n\n`;
   } else {
-    msg += `\n\n*Forma de recebimento:* 🏬 Retirada na loja`;
+    msg += `Vou retirar na loja\n\n`;
   }
 
   const obs = document.getElementById('observacao');
-  if (obs && obs.value.trim()) msg += `\n\n*Observação:* ${obs.value.trim()}`;
-  msg += `\n\n_Aguardo a confirmação dos itens e do total. Obrigado!_`;
+  if (obs && obs.value.trim()) msg += `Obs: ${obs.value.trim()}\n\n`;
+
+  msg += `Aguardo confirmação, obrigado!`;
   window.open(`https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(msg)}`, "_blank");
 }
 
