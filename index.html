@@ -1,1 +1,663 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Supermercado Lubachesky — Ofertas da semana</title>
+<meta name="description" content="Catálogo do Supermercado Lubachesky. Monte seu pedido e finalize direto pelo WhatsApp.">
+<meta name="theme-color" content="#0c2464">
+<meta property="og:title" content="Supermercado Lubachesky — Ofertas da semana">
+<meta property="og:description" content="Monte seu pedido e finalize direto pelo WhatsApp. Sem cadastro, sem pagamento on-line.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Supermercado Lubachesky">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 44'%3E%3Cpath d='M2 4h6l5 24h26l5-16H14' stroke='%231946c8' stroke-width='4' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Ccircle cx='17' cy='37' r='4' fill='%231946c8'/%3E%3Ccircle cx='35' cy='37' r='4' fill='%231946c8'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Dados estruturados para o Google (edite se endereço/horários mudarem) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "GroceryStore",
+  "name": "Supermercado Lubachesky",
+  "description": "Supermercado com açougue próprio, hortifruti selecionado diariamente e pedidos pelo WhatsApp.",
+  "telephone": "+55 45 99912-2362",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rua Rui Barbosa, 2111 - Centro",
+    "addressLocality": "Santa Tereza do Oeste",
+    "addressRegion": "PR",
+    "postalCode": "85825-000",
+    "addressCountry": "BR"
+  },
+  "openingHours": ["Mo-Sa 08:30-12:00", "Mo-Sa 13:30-18:30"],
+  "priceRange": "$$"
+}
+</script>
+
+<!--
+  COMO ADICIONAR FOTOS REAIS DOS PRODUTOS
+  1. Crie uma pasta "produtos" ao lado deste arquivo
+  2. Salve a foto com o mesmo nome do campo "foto" de cada produto (array PRODUTOS no <script> final)
+  3. Pronto — aparece sozinha. Até lá, mostra um espaço reservado.
+-->
+
+<style>
+  :root{
+    --azul:#1946c8;
+    --azul-escuro:#0c2464;
+    --azul-claro:#eef2fc;
+    --vermelho:#d81324;
+    --amarelo:#ffc832;
+    --branco:#ffffff;
+    --fundo:#f4f5f7;
+    --grafite:#1c2230;
+    --cinza:#69707e;
+    --linha:#e3e6ec;
+    --display:'Poppins',sans-serif;
+    --sans:'Inter',system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);color:var(--grafite);background:var(--fundo);line-height:1.55}
+  img{max-width:100%;display:block}
+  button{font-family:inherit;cursor:pointer}
+  .container{max-width:1220px;margin:0 auto;padding:0 20px}
+
+  header{position:sticky;top:0;z-index:40;background:var(--branco);border-bottom:1px solid var(--linha)}
+  .topo{display:flex;align-items:center;gap:20px;padding:14px 20px;max-width:1220px;margin:0 auto}
+  .marca{display:flex;align-items:center;gap:10px;flex-shrink:0}
+  .marca-texto{line-height:1.05}
+  .marca-texto .sup{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cinza);font-weight:600}
+  .marca-texto .nome{font-family:var(--display);font-weight:800;font-size:1.2rem;color:var(--azul-escuro)}
+  .marca-texto .nome b{color:var(--vermelho)}
+
+  .busca-topo{flex:1;position:relative;max-width:560px}
+  .busca-topo input{width:100%;padding:12px 46px 12px 18px;border-radius:10px;border:1.5px solid var(--linha);font-size:.92rem;font-family:inherit;background:var(--fundo)}
+  .busca-topo input:focus{outline:none;border-color:var(--azul)}
+  .busca-topo input:focus-visible{outline:2px solid var(--azul);outline-offset:2px}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--azul);outline-offset:2px}
+  .busca-topo .icone-busca{position:absolute;right:16px;top:50%;transform:translateY(-50%);color:var(--cinza);pointer-events:none}
+
+  .btn-comanda{position:relative;display:flex;align-items:center;gap:8px;background:var(--azul);color:#fff;border:none;font-weight:700;font-size:.86rem;padding:11px 18px;border-radius:10px;flex-shrink:0;transition:background .2s}
+  .btn-comanda:hover{background:var(--azul-escuro)}
+  .btn-comanda .bolha{background:var(--vermelho);color:#fff;border-radius:100px;font-size:.7rem;font-weight:700;min-width:19px;height:19px;display:inline-flex;align-items:center;justify-content:center;padding:0 5px;transition:transform .3s}
+  .btn-comanda .bolha.pulso{animation:pulso .4s ease}
+  @keyframes pulso{0%{transform:scale(1)}45%{transform:scale(1.4)}100%{transform:scale(1)}}
+
+  .tira-cat{border-top:1px solid var(--linha);overflow-x:auto;scrollbar-width:none}
+  .tira-cat::-webkit-scrollbar{display:none}
+  .tira-cat-inner{display:flex;gap:6px;padding:10px 20px;max-width:1220px;margin:0 auto;width:max-content}
+  .chip-cat{display:flex;align-items:center;gap:7px;padding:9px 16px;border-radius:100px;border:1.5px solid var(--linha);background:var(--branco);font-weight:600;font-size:.85rem;color:var(--grafite);white-space:nowrap;transition:all .2s}
+  .chip-cat:hover{border-color:var(--azul)}
+  .chip-cat.ativo{background:var(--azul);border-color:var(--azul);color:#fff}
+  .chip-cat .emoji-cat{font-size:1rem}
+
+  .banner{background:linear-gradient(120deg,var(--azul-escuro),var(--azul) 65%);position:relative;overflow:hidden;color:#fff;padding:34px 20px}
+  .banner-inner{max-width:1220px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;position:relative;z-index:1}
+  .banner .fita{position:absolute;top:16px;right:6%;background:var(--amarelo);color:var(--azul-escuro);font-family:var(--display);font-weight:800;font-size:.78rem;padding:6px 16px;border-radius:100px;transform:rotate(4deg);box-shadow:0 6px 16px rgba(0,0,0,.15)}
+  .banner h1{font-family:var(--display);font-weight:800;font-size:clamp(1.5rem,3.6vw,2.3rem);line-height:1.15;max-width:640px}
+  .banner p{margin-top:8px;color:rgba(255,255,255,.82);font-size:.98rem;max-width:52ch}
+  .banner-cta{display:inline-flex;align-items:center;gap:8px;background:var(--amarelo);color:var(--azul-escuro);font-weight:700;font-size:.92rem;padding:13px 26px;border-radius:10px;text-decoration:none;margin-top:16px;transition:transform .2s}
+  .banner-cta:hover{transform:translateY(-2px)}
+  .banner-emoji{font-size:5rem;opacity:.9;filter:drop-shadow(0 8px 18px rgba(0,0,0,.25))}
+
+  .secao-produtos{max-width:1220px;margin:0 auto;padding:32px 20px 20px}
+  .titulo-linha{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:6px}
+  .titulo-linha h2{font-family:var(--display);font-weight:800;font-size:1.4rem;color:var(--grafite)}
+  .titulo-linha span{font-size:.82rem;color:var(--cinza)}
+
+  .grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:16px}
+  .produto{background:var(--branco);border:1px solid var(--linha);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;position:relative;transition:box-shadow .2s,border-color .2s;opacity:0;animation:aparecer .5s ease forwards}
+  .produto:hover{box-shadow:0 10px 24px -12px rgba(12,36,100,.25);border-color:#cfd7ea}
+  @keyframes aparecer{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  .produto .selo{position:absolute;top:10px;left:10px;background:var(--vermelho);color:#fff;font-size:.62rem;font-weight:800;letter-spacing:.03em;padding:4px 9px;border-radius:5px;z-index:2}
+  .foto-wrap{aspect-ratio:1/0.9;background:var(--azul-claro);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+  .foto-wrap img{width:100%;height:100%;object-fit:cover}
+  .foto-fallback{display:flex;flex-direction:column;align-items:center;gap:4px;color:#9aa7c7}
+  .foto-fallback .icone{font-size:2.2rem;opacity:.7}
+  .foto-fallback span{font-size:.62rem;text-align:center;padding:0 8px}
+  .produto .corpo{padding:12px 13px 13px;display:flex;flex-direction:column;flex:1}
+  .produto h3{font-size:.9rem;font-weight:600;color:var(--grafite);line-height:1.3}
+  .produto .un{font-size:.72rem;color:var(--cinza);font-weight:400}
+  .produto .desc{font-size:.74rem;color:var(--cinza);margin:4px 0 10px;flex:1;line-height:1.4}
+  .precos{margin-bottom:10px}
+  .precos .antes{display:block;font-size:.74rem;color:var(--cinza);text-decoration:line-through}
+  .precos .agora{font-family:var(--display);font-weight:800;font-size:1.15rem;color:var(--azul-escuro)}
+  .precos .agora.oferta{color:var(--vermelho)}
+
+  .add-btn{background:var(--azul);color:#fff;border:none;border-radius:8px;padding:9px;font-weight:700;font-size:.8rem;transition:background .2s}
+  .add-btn:hover{background:var(--azul-escuro)}
+  .stepper{display:flex;align-items:center;justify-content:space-between;background:var(--azul-claro);border-radius:8px;padding:3px}
+  .stepper button{flex:1;background:transparent;border:none;font-size:1.05rem;font-weight:800;color:var(--azul-escuro);padding:5px}
+  .stepper span{font-weight:800;color:var(--azul-escuro);font-size:.92rem}
+
+  .nota-exemplo{text-align:center;color:var(--cinza);font-size:.78rem;margin-top:22px}
+
+  .aviso-catalogo{display:flex;align-items:center;gap:12px;background:var(--azul-claro);border:1px solid #cfd7ea;border-radius:12px;padding:14px 18px;margin-bottom:20px;flex-wrap:wrap}
+  .aviso-catalogo p{font-size:.86rem;color:var(--grafite);flex:1;min-width:200px}
+  .aviso-catalogo strong{color:var(--azul-escuro)}
+  .aviso-catalogo a{display:inline-flex;align-items:center;gap:7px;background:#1da851;color:#fff;font-weight:700;font-size:.82rem;padding:9px 16px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:transform .2s}
+  .aviso-catalogo a:hover{transform:translateY(-2px)}
+
+  .sem-resultado{grid-column:1/-1;text-align:center;padding:40px 20px;background:var(--branco);border:1px dashed var(--linha);border-radius:14px}
+  .sem-resultado .icone{font-size:2.6rem;margin-bottom:10px}
+  .sem-resultado h3{font-family:var(--display);font-weight:700;font-size:1.05rem;color:var(--grafite);margin-bottom:6px}
+  .sem-resultado p{font-size:.88rem;color:var(--cinza);max-width:42ch;margin:0 auto 16px}
+  .sem-resultado a{display:inline-flex;align-items:center;gap:8px;background:#1da851;color:#fff;font-weight:700;font-size:.88rem;padding:11px 20px;border-radius:8px;text-decoration:none;transition:transform .2s}
+  .sem-resultado a:hover{transform:translateY(-2px)}
+
+  .info-strip{background:var(--branco);border-top:1px solid var(--linha);border-bottom:1px solid var(--linha)}
+  .info-strip .container{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:0}
+  .info-item-strip{padding:22px 16px;text-align:center;border-left:1px solid var(--linha)}
+  .info-item-strip:first-child{border-left:none}
+  .info-item-strip .icone{font-size:1.6rem;margin-bottom:6px}
+  .info-item-strip strong{display:block;font-size:.88rem;color:var(--grafite)}
+  .info-item-strip span{font-size:.78rem;color:var(--cinza)}
+
+  .como{padding:52px 20px;background:var(--branco)}
+  .como .container{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .como h2{grid-column:1/-1;font-family:var(--display);font-weight:800;font-size:1.6rem;color:var(--grafite);margin-bottom:6px}
+  .passo{text-align:center}
+  .passo .num{width:44px;height:44px;border-radius:50%;background:var(--azul-claro);color:var(--azul-escuro);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:1.1rem;margin:0 auto 12px}
+  .passo p{font-size:.86rem;color:var(--cinza);line-height:1.5}
+
+  .assinatura{background:linear-gradient(120deg,var(--azul-escuro),var(--azul) 70%);padding:34px 20px;color:#fff}
+  .assinatura .container{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .assinatura h3{font-family:var(--display);font-weight:800;font-size:1.15rem}
+  .assinatura p{font-size:.88rem;color:rgba(255,255,255,.82);margin-top:4px;max-width:46ch}
+  .btn-assinar{display:inline-flex;align-items:center;gap:9px;background:#1da851;color:#fff;font-weight:700;font-size:.9rem;padding:13px 22px;border-radius:10px;text-decoration:none;white-space:nowrap;transition:transform .2s}
+  .btn-assinar:hover{transform:translateY(-2px)}
+
+  .historia{padding:52px 20px}
+  .eyebrow{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--vermelho);font-weight:700;margin-bottom:10px}
+  .historia h2{font-family:var(--display);font-weight:800;font-size:1.6rem;color:var(--grafite);max-width:640px}
+  .historia-texto{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:34px;margin-top:22px}
+  .historia-texto p{font-size:.98rem;line-height:1.7}
+  .historia-texto p.fraco{color:var(--cinza)}
+
+  .setores{padding:52px 20px;background:var(--branco)}
+  .setores h2{font-family:var(--display);font-weight:800;font-size:1.6rem;color:var(--grafite);margin-bottom:24px}
+  .setores-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+  .setor-card{background:var(--fundo);border:1px solid var(--linha);border-radius:12px;padding:20px;transition:border-color .2s}
+  .setor-card:hover{border-color:var(--azul)}
+  .setor-card .icone{font-size:1.9rem;margin-bottom:8px}
+  .setor-card h3{font-weight:700;color:var(--azul-escuro);font-size:1rem;margin-bottom:4px}
+  .setor-card p{font-size:.82rem;color:var(--cinza)}
+
+  .local{padding:52px 20px}
+  .local h2{font-family:var(--display);font-weight:800;font-size:1.6rem;color:var(--grafite);margin-bottom:24px}
+  .local-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:34px}
+  .info-item{border-left:3px solid var(--vermelho);padding-left:14px;margin-bottom:18px}
+  .info-item strong{display:block;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--vermelho);font-weight:700;margin-bottom:3px}
+  .btn-azul{display:inline-block;background:var(--azul);color:#fff;font-weight:700;font-size:.88rem;padding:12px 22px;border-radius:10px;text-decoration:none;margin-top:6px}
+  .mapa-caixa{border-radius:12px;border:1px solid var(--linha);background:var(--branco);min-height:280px;display:flex;align-items:center;justify-content:center;color:var(--cinza);text-align:center;padding:20px}
+
+  footer{background:var(--azul-escuro);color:rgba(255,255,255,.65);padding:36px 20px;text-align:center}
+  footer .nome{font-family:var(--display);font-weight:800;font-size:1.2rem;color:#fff}
+  footer .nome b{color:var(--vermelho)}
+  footer p{margin-top:6px;font-size:.82rem}
+
+  .zap-flutuante{position:fixed;bottom:20px;left:20px;background:#1da851;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px -6px rgba(29,168,81,.55);z-index:45;text-decoration:none;transition:transform .2s}
+  .zap-flutuante:hover{transform:scale(1.08)}
+
+  .overlay{position:fixed;inset:0;background:rgba(12,36,100,.45);z-index:50;opacity:0;pointer-events:none;transition:opacity .3s}
+  .overlay.aberto{opacity:1;pointer-events:auto}
+  .drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,94vw);background:var(--branco);z-index:51;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .35s cubic-bezier(.16,1,.3,1);box-shadow:-12px 0 40px rgba(0,0,0,.2)}
+  .drawer.aberto{transform:translateX(0)}
+  .drawer-topo{padding:18px 20px;border-bottom:1px solid var(--linha);display:flex;justify-content:space-between;align-items:center}
+  .drawer-topo h3{font-family:var(--display);font-weight:800;font-size:1.2rem;color:var(--azul-escuro)}
+  .fechar-drawer{background:none;border:none;font-size:1.6rem;color:var(--cinza);line-height:1}
+  .drawer-corpo{flex:1;overflow-y:auto;padding:14px 20px}
+  .vazio{text-align:center;color:var(--cinza);margin-top:50px}
+  .vazio .icone{font-size:2.8rem;opacity:.4;margin-bottom:12px}
+  .item-carrinho{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--linha)}
+  .item-carrinho .foto-mini{width:48px;height:48px;border-radius:8px;background:var(--azul-claro);flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:1.3rem}
+  .item-carrinho .foto-mini img{width:100%;height:100%;object-fit:cover}
+  .item-info{flex:1}
+  .item-info .nome{font-weight:600;font-size:.9rem;color:var(--grafite)}
+  .item-info .sub{font-size:.78rem;color:var(--cinza)}
+  .mini-stepper{display:flex;align-items:center;gap:6px}
+  .mini-stepper button{width:26px;height:26px;border-radius:6px;background:var(--azul-claro);border:none;font-weight:800;color:var(--azul-escuro)}
+  textarea#observacao{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--linha);font-family:inherit;font-size:.88rem;resize:vertical;margin-top:6px}
+  .drawer-rodape{padding:16px 20px;border-top:1px solid var(--linha);background:var(--fundo)}
+  .linha-total{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+  .linha-total .valor{font-family:var(--display);font-weight:800;font-size:1.4rem;color:var(--azul-escuro)}
+  .btn-enviar{width:100%;background:#1da851;color:#fff;border:none;border-radius:10px;padding:14px;font-weight:700;font-size:.95rem;display:flex;align-items:center;justify-content:center;gap:8px}
+  .btn-limpar{width:100%;background:none;border:none;color:var(--cinza);margin-top:10px;font-size:.82rem;text-decoration:underline}
+  .aviso-pagamento{font-size:.72rem;color:var(--cinza);text-align:center;margin-top:10px;line-height:1.5}
+  .btn-forma{padding:12px 8px;border-radius:8px;border:1.5px solid var(--linha);background:var(--branco);font-weight:600;font-size:.82rem;color:var(--cinza);transition:all .2s}
+  .btn-forma.ativo{border-color:var(--azul);background:var(--azul-claro);color:var(--azul-escuro)}
+
+  @media (max-width:760px){
+    .como .container{grid-template-columns:1fr 1fr}
+    .busca-topo{order:3;flex-basis:100%}
+    .topo{flex-wrap:wrap}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.produto{opacity:1!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="topo">
+    <div class="marca">
+      <svg width="38" height="32" viewBox="0 0 52 44" fill="none">
+        <path d="M2 4h6l5 24h26l5-16H14" stroke="#1946c8" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="17" cy="37" r="3.6" fill="#1946c8"/>
+        <circle cx="35" cy="37" r="3.6" fill="#1946c8"/>
+      </svg>
+      <div class="marca-texto">
+        <div class="sup">Supermercado</div>
+        <div class="nome">Lubaches<b>k</b>y</div>
+      </div>
+    </div>
+    <div class="busca-topo">
+      <label for="campoBusca" class="sr-only">Buscar produto no catálogo</label>
+      <input id="campoBusca" type="text" placeholder="Buscar produto…" oninput="filtrar()" autocomplete="off">
+      <svg class="icone-busca" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </div>
+    <button class="btn-comanda" onclick="abrirDrawer()" aria-haspopup="dialog" aria-controls="drawer">
+      🛒 Comanda <span class="bolha" id="contadorComanda" aria-live="polite">0</span>
+    </button>
+  </div>
+  <nav class="tira-cat">
+    <div class="tira-cat-inner" id="filtros">
+      <button class="chip-cat ativo" data-cat="Ofertas" onclick="mudarCategoria('Ofertas')" aria-pressed="true"><span class="emoji-cat" aria-hidden="true">🏷️</span> Ofertas</button>
+      <button class="chip-cat" data-cat="Açougue" onclick="mudarCategoria('Açougue')" aria-pressed="false"><span class="emoji-cat" aria-hidden="true">🥩</span> Açougue</button>
+      <button class="chip-cat" data-cat="Hortifruti" onclick="mudarCategoria('Hortifruti')" aria-pressed="false"><span class="emoji-cat" aria-hidden="true">🥬</span> Hortifruti</button>
+      <button class="chip-cat" data-cat="Mercearia" onclick="mudarCategoria('Mercearia')" aria-pressed="false"><span class="emoji-cat" aria-hidden="true">🛒</span> Mercearia</button>
+      <button class="chip-cat" data-cat="Higiene" onclick="mudarCategoria('Higiene')" aria-pressed="false"><span class="emoji-cat" aria-hidden="true">🧴</span> Higiene e Limpeza</button>
+    </div>
+  </nav>
+</header>
+
+<section class="banner" id="produtos">
+  <span class="fita">ATÉ 30% OFF</span>
+  <div class="banner-inner">
+    <div>
+      <h1>As ofertas da semana estão no ar</h1>
+      <p>Monte sua compra, ajuste as quantidades e envie o pedido direto pelo WhatsApp — sem cadastro, sem pagamento on-line.</p>
+      <a href="#grade" class="banner-cta">Ver ofertas →</a>
+    </div>
+    <div class="banner-emoji">🛒</div>
+  </div>
+</section>
+
+<section class="secao-produtos">
+  <div class="titulo-linha">
+    <h2 id="tituloCategoria">Ofertas</h2>
+    <span id="contagemItens" aria-live="polite">0 itens</span>
+  </div>
+  <div class="aviso-catalogo">
+    <p>💬 Este site mostra as <strong>ofertas e os itens mais pedidos</strong>. A loja tem muito mais — não encontrou o que precisa? É só perguntar.</p>
+    <a href="https://wa.me/5545999122362?text=Ol%C3%A1!%20Voc%C3%AAs%20t%C3%AAm" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.1c-.2.6-1.2 1.2-1.7 1.2-.4.1-1 .1-1.6-.1a13 13 0 0 1-5.7-5 6.6 6.6 0 0 1-1.3-3.4c0-1 .5-1.5.7-1.7.2-.2.5-.3.6-.3h.5c.2 0 .4 0 .6.4l.9 2.1c.1.2.1.4 0 .6l-.4.6c-.2.2-.3.4-.1.7.1.3.7 1.1 1.5 1.8 1 .9 1.9 1.2 2.2 1.3.3.1.4.1.6-.1l.7-.8c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.2 1.5z"/></svg>
+      Perguntar no WhatsApp
+    </a>
+  </div>
+  <div class="grade" id="grade"></div>
+  <p class="nota-exemplo">* Produtos e preços de exemplo — substitua pelos itens reais do mercado.</p>
+</section>
+
+<div class="info-strip">
+  <div class="container">
+    <div class="info-item-strip"><div class="icone">💬</div><strong>Peça pelo WhatsApp</strong><span>Sem aplicativo, sem cadastro</span></div>
+    <div class="info-item-strip"><div class="icone">🥩</div><strong>Açougue próprio</strong><span>Cortes na hora</span></div>
+    <div class="info-item-strip"><div class="icone">🥬</div><strong>Hortifruti fresco</strong><span>Selecionado toda manhã</span></div>
+    <div class="info-item-strip"><div class="icone">💳</div><strong>Pix · Cartão · VA</strong><span>Pague na entrega</span></div>
+  </div>
+</div>
+
+<section class="como">
+  <div class="container">
+    <h2>Como funciona</h2>
+    <div class="passo"><div class="num">1</div><p>Escolha os produtos e ajuste as quantidades</p></div>
+    <div class="passo"><div class="num">2</div><p>Abra a comanda e revise o pedido</p></div>
+    <div class="passo"><div class="num">3</div><p>Envie tudo pelo WhatsApp com um toque</p></div>
+    <div class="passo"><div class="num">4</div><p>Combine entrega ou retirada e pague na hora</p></div>
+  </div>
+</section>
+
+<section class="assinatura">
+  <div class="container">
+    <div>
+      <h3>📩 Não quer perder as ofertas da semana?</h3>
+      <p>Receba os melhores preços direto no seu WhatsApp, sem precisar entrar no site toda semana.</p>
+    </div>
+    <a class="btn-assinar" href="https://wa.me/5545999122362?text=Ol%C3%A1!%20Quero%20receber%20as%20ofertas%20semanais%20do%20Lubachesky" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.1c-.2.6-1.2 1.2-1.7 1.2-.4.1-1 .1-1.6-.1a13 13 0 0 1-5.7-5 6.6 6.6 0 0 1-1.3-3.4c0-1 .5-1.5.7-1.7.2-.2.5-.3.6-.3h.5c.2 0 .4 0 .6.4l.9 2.1c.1.2.1.4 0 .6l-.4.6c-.2.2-.3.4-.1.7.1.3.7 1.1 1.5 1.8 1 .9 1.9 1.2 2.2 1.3.3.1.4.1.6-.1l.7-.8c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.2 1.5z"/></svg>
+      Quero receber ofertas
+    </a>
+  </div>
+</section>
+
+<section class="historia" id="historia">
+  <div class="container">
+    <p class="eyebrow">Nossa história</p>
+    <h2>Uma história que se confunde com a de Santa Tereza do Oeste</h2>
+    <div class="historia-texto">
+      <p>O Lubachesky nasceu do jeito que os grandes começos costumam nascer: com trabalho de família e a confiança dos vizinhos. Na Rua Rui Barbosa, no coração do Centro, o mercado virou parte da rotina da cidade.</p>
+      <p class="fraco">De geração em geração de clientes, crescemos junto com a cidade, sem abrir mão do que nos trouxe até aqui: qualidade no balcão, preço honesto e atendimento de quem trata amigo, não número.</p>
+    </div>
+  </div>
+</section>
+
+<section class="setores">
+  <div class="container">
+    <h2>Cada corredor, um cuidado diferente</h2>
+    <div class="setores-grid">
+      <div class="setor-card"><div class="icone">🥩</div><h3>Açougue</h3><p>Carnes selecionadas e cortes na hora.</p></div>
+      <div class="setor-card"><div class="icone">🥬</div><h3>Hortifruti</h3><p>Frutas e verduras escolhidas toda manhã.</p></div>
+      <div class="setor-card"><div class="icone">🧴</div><h3>Higiene e Limpeza</h3><p>Um dos setores mais completos da região.</p></div>
+      <div class="setor-card"><div class="icone">🛒</div><h3>Mercearia</h3><p>Das marcas líderes aos produtos locais.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="local">
+  <div class="container">
+    <h2>Venha nos visitar</h2>
+    <div class="local-grid">
+      <div>
+        <div class="info-item"><strong>Endereço</strong>Rua Rui Barbosa, 2111 — Centro<br>Santa Tereza do Oeste — PR, 85825-000</div>
+        <div class="info-item"><strong>Horários</strong>Segunda a sábado: 8h30–12h · 13h30–18h30<br>Domingo: fechado</div>
+        <div class="info-item"><strong>Contato</strong>(45) 99912-2362 — WhatsApp e telefone</div>
+        <a href="https://www.google.com/maps/search/?api=1&query=Supermercado+Lubachesky+Rua+Rui+Barbosa+2111+Santa+Tereza+do+Oeste+PR" target="_blank" rel="noopener noreferrer" class="btn-azul">Traçar rota no Google Maps</a>
+      </div>
+      <div class="mapa-caixa">Cole aqui o iframe do Google Maps<br>(Maps → Compartilhar → Incorporar)</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="nome">Lubaches<b>k</b>y</div>
+  <p>Qualidade e tradição para sua família · Santa Tereza do Oeste — PR</p>
+  <p style="margin-top:14px;font-size:.76rem;opacity:.7">© 2026 Supermercado Lubachesky — Todos os direitos reservados</p>
+</footer>
+
+<a class="zap-flutuante" href="https://wa.me/5545999122362" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" width="26" height="26" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.1c-.2.6-1.2 1.2-1.7 1.2-.4.1-1 .1-1.6-.1a13 13 0 0 1-5.7-5 6.6 6.6 0 0 1-1.3-3.4c0-1 .5-1.5.7-1.7.2-.2.5-.3.6-.3h.5c.2 0 .4 0 .6.4l.9 2.1c.1.2.1.4 0 .6l-.4.6c-.2.2-.3.4-.1.7.1.3.7 1.1 1.5 1.8 1 .9 1.9 1.2 2.2 1.3.3.1.4.1.6-.1l.7-.8c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.2 1.5z"/></svg>
+</a>
+
+<div class="overlay" id="overlay" onclick="fecharDrawer()"></div>
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="tituloComanda" tabindex="-1">
+  <div class="drawer-topo">
+    <h3 id="tituloComanda">🛒 Sua comanda</h3>
+    <button class="fechar-drawer" onclick="fecharDrawer()" aria-label="Fechar comanda">×</button>
+  </div>
+  <div class="drawer-corpo" id="drawerCorpo"></div>
+  <div class="drawer-rodape" id="drawerRodape" style="display:none">
+    <div class="linha-total">
+      <span style="font-weight:600">Total</span>
+      <span class="valor" id="totalValor">R$ 0,00</span>
+    </div>
+    <button class="btn-enviar" onclick="enviarPedido()">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.1c-.2.6-1.2 1.2-1.7 1.2-.4.1-1 .1-1.6-.1a13 13 0 0 1-5.7-5 6.6 6.6 0 0 1-1.3-3.4c0-1 .5-1.5.7-1.7.2-.2.5-.3.6-.3h.5c.2 0 .4 0 .6.4l.9 2.1c.1.2.1.4 0 .6l-.4.6c-.2.2-.3.4-.1.7.1.3.7 1.1 1.5 1.8 1 .9 1.9 1.2 2.2 1.3.3.1.4.1.6-.1l.7-.8c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.2 1.5z"/></svg>
+      Enviar pelo WhatsApp
+    </button>
+    <button class="btn-limpar" onclick="esvaziarCarrinho()">Esvaziar comanda</button>
+    <p class="aviso-pagamento">O pagamento é combinado com o mercado na confirmação.</p>
+  </div>
+</div>
+
+<script>
+const WHATSAPP_NUMERO = "5545999122362";
+
+const PRODUTOS = [
+  { id:1,  nome:"Coxão mole",      un:"kg",   cat:"Açougue",    preco:29.90, antes:44.90, emoji:"🥩", desc:"Corte magro, ideal para bifes.",      foto:"produtos/coxao-mole.jpg" },
+  { id:2,  nome:"Arroz tipo 1",    un:"5kg",  cat:"Mercearia",  preco:21.90, antes:27.90, emoji:"🍚", desc:"Grão longo fino selecionado.",        foto:"produtos/arroz-5kg.jpg" },
+  { id:3,  nome:"Leite integral",  un:"1L",   cat:"Mercearia",  preco:4.89,  antes:6.49,  emoji:"🥛", desc:"Longa vida, caixa de 1 litro.",       foto:"produtos/leite-integral.jpg" },
+  { id:4,  nome:"Tomate",          un:"kg",   cat:"Hortifruti", preco:5.49,  antes:8.99,  emoji:"🍅", desc:"Maduro no ponto certo.",              foto:"produtos/tomate.jpg" },
+  { id:5,  nome:"Picanha",         un:"kg",   cat:"Açougue",    preco:74.90, emoji:"🥩", desc:"Peça inteira para o churrasco.",       foto:"produtos/picanha.jpg" },
+  { id:6,  nome:"Frango inteiro",  un:"kg",   cat:"Açougue",    preco:12.90, emoji:"🍗", desc:"Resfriado, sempre fresco.",            foto:"produtos/frango.jpg" },
+  { id:7,  nome:"Banana prata",    un:"kg",   cat:"Hortifruti", preco:3.99,  emoji:"🍌", desc:"Doce e firme para o dia a dia.",       foto:"produtos/banana-prata.jpg" },
+  { id:8,  nome:"Alface crespa",   un:"un",   cat:"Hortifruti", preco:3.49,  emoji:"🥬", desc:"Folhas colhidas na região.",           foto:"produtos/alface.jpg" },
+  { id:9,  nome:"Feijão carioca",  un:"1kg",  cat:"Mercearia",  preco:8.49,  emoji:"🫘", desc:"Tipo 1, grão selecionado.",            foto:"produtos/feijao.jpg" },
+  { id:10, nome:"Café torrado",    un:"500g", cat:"Mercearia",  preco:15.90, emoji:"☕", desc:"Torra média encorpada.",               foto:"produtos/cafe.jpg" },
+  { id:11, nome:"Shampoo",         un:"350ml",cat:"Higiene",    preco:12.90, emoji:"🧴", desc:"Para todos os tipos de cabelo.",       foto:"produtos/shampoo.jpg" },
+  { id:12, nome:"Papel higiênico", un:"12un", cat:"Higiene",    preco:18.90, emoji:"🧻", desc:"Folha dupla, 12 rolos.",               foto:"produtos/papel-higienico.jpg" },
+  // ——— Essenciais da cesta básica (referência DIEESE) ———
+  { id:13, nome:"Açúcar cristal",  un:"1kg",  cat:"Mercearia",  preco:5.29,  emoji:"🍬", desc:"Refinado, pacote de 1kg.",             foto:"produtos/acucar.jpg" },
+  { id:14, nome:"Óleo de soja",    un:"900ml",cat:"Mercearia",  preco:7.49,  emoji:"🛢️", desc:"Garrafa 900ml.",                       foto:"produtos/oleo-soja.jpg" },
+  { id:15, nome:"Farinha de trigo",un:"1kg",  cat:"Mercearia",  preco:5.99,  emoji:"🌾", desc:"Tipo 1, pacote de 1kg.",               foto:"produtos/farinha-trigo.jpg" },
+  { id:16, nome:"Macarrão espaguete",un:"500g",cat:"Mercearia", preco:4.79,  emoji:"🍝", desc:"Sêmola, pacote de 500g.",              foto:"produtos/macarrao.jpg" },
+  { id:17, nome:"Sal refinado",    un:"1kg",  cat:"Mercearia",  preco:2.99,  emoji:"🧂", desc:"Iodado, pacote de 1kg.",               foto:"produtos/sal.jpg" },
+  { id:18, nome:"Margarina",       un:"500g", cat:"Mercearia",  preco:8.99,  emoji:"🧈", desc:"Cremosa, pote de 500g.",               foto:"produtos/margarina.jpg" },
+  { id:19, nome:"Pão francês",     un:"kg",   cat:"Mercearia",  preco:14.90, emoji:"🥖", desc:"Fresquinho, assado no dia.",           foto:"produtos/pao-frances.jpg" },
+  { id:20, nome:"Ovos",            un:"dúzia",cat:"Mercearia",  preco:9.99,  emoji:"🥚", desc:"Brancos, caixa com 12 unidades.",      foto:"produtos/ovos.jpg" },
+  { id:21, nome:"Batata",          un:"kg",   cat:"Hortifruti", preco:5.99,  emoji:"🥔", desc:"Lavada, selecionada.",                 foto:"produtos/batata.jpg" },
+  { id:22, nome:"Cebola",          un:"kg",   cat:"Hortifruti", preco:4.49,  emoji:"🧅", desc:"Selecionada, tamanho médio.",          foto:"produtos/cebola.jpg" },
+  { id:23, nome:"Sabão em pó",     un:"1kg",  cat:"Higiene",    preco:11.90, emoji:"🧺", desc:"Concentrado, pacote de 1kg.",          foto:"produtos/sabao-po.jpg" },
+  { id:24, nome:"Detergente líquido",un:"500ml",cat:"Higiene",  preco:2.79,  emoji:"🧴", desc:"Neutro, frasco de 500ml.",             foto:"produtos/detergente.jpg" },
+  { id:25, nome:"Creme dental",    un:"90g",  cat:"Higiene",    preco:4.49,  emoji:"🪥", desc:"Proteção completa, 90g.",              foto:"produtos/creme-dental.jpg" },
+  { id:26, nome:"Água sanitária",  un:"1L",   cat:"Higiene",    preco:4.99,  emoji:"🧼", desc:"Alvejante, frasco de 1 litro.",        foto:"produtos/agua-sanitaria.jpg" },
+];
+
+let categoriaAtual = "Ofertas";
+let carrinho = {};
+
+const NOMES_CATEGORIA = { "Higiene": "Higiene e Limpeza" };
+const nomeExibicao = (cat) => NOMES_CATEGORIA[cat] || cat;
+
+const real = (v) => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+const escapeHTML = (s) => s.replace(/[&<>"']/g, (c) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+
+function mudarCategoria(cat){
+  categoriaAtual = cat;
+  document.getElementById('campoBusca').value = '';
+  document.querySelectorAll('.chip-cat').forEach(c => {
+    const ativo = c.dataset.cat === cat;
+    c.classList.toggle('ativo', ativo);
+    c.setAttribute('aria-pressed', ativo ? 'true' : 'false');
+  });
+  document.getElementById('tituloCategoria').textContent = nomeExibicao(cat);
+  renderizarGrade();
+}
+
+function filtrar(){
+  const termo = document.getElementById('campoBusca').value.trim();
+  if (termo) document.querySelectorAll('.chip-cat').forEach(c => { c.classList.remove('ativo'); c.setAttribute('aria-pressed', 'false'); });
+  document.getElementById('tituloCategoria').textContent = termo ? `Resultados para "${termo}"` : categoriaAtual;
+  renderizarGrade();
+}
+
+function listaFiltrada(){
+  const termo = document.getElementById('campoBusca').value.trim().toLowerCase();
+  if (termo) return PRODUTOS.filter(p => p.nome.toLowerCase().includes(termo) || p.cat.toLowerCase().includes(termo));
+  if (categoriaAtual === "Ofertas") return PRODUTOS.filter(p => p.antes);
+  return PRODUTOS.filter(p => p.cat === categoriaAtual);
+}
+
+function renderizarGrade(){
+  const lista = listaFiltrada();
+  const grade = document.getElementById('grade');
+  const termo = document.getElementById('campoBusca').value.trim();
+  document.getElementById('contagemItens').textContent = `${lista.length} ${lista.length === 1 ? 'item' : 'itens'}`;
+
+  if (lista.length === 0 && termo){
+    const termoSeguro = escapeHTML(termo);
+    const msgZap = encodeURIComponent(`Olá! Vocês têm "${termo}"?`);
+    grade.innerHTML = `
+      <div class="sem-resultado">
+        <div class="icone">🔍</div>
+        <h3>"${termoSeguro}" não está no catálogo do site</h3>
+        <p>Mas é bem provável que a loja tenha! Este catálogo mostra só as ofertas e os itens mais pedidos — pergunte direto pra gente.</p>
+        <a href="https://wa.me/${WHATSAPP_NUMERO}?text=${msgZap}" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.1c-.2.6-1.2 1.2-1.7 1.2-.4.1-1 .1-1.6-.1a13 13 0 0 1-5.7-5 6.6 6.6 0 0 1-1.3-3.4c0-1 .5-1.5.7-1.7.2-.2.5-.3.6-.3h.5c.2 0 .4 0 .6.4l.9 2.1c.1.2.1.4 0 .6l-.4.6c-.2.2-.3.4-.1.7.1.3.7 1.1 1.5 1.8 1 .9 1.9 1.2 2.2 1.3.3.1.4.1.6-.1l.7-.8c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.2 1.5z"/></svg>
+          Perguntar sobre "${termoSeguro}"
+        </a>
+      </div>
+    `;
+    return;
+  }
+
+  grade.innerHTML = lista.map((p, i) => {
+    const qtd = carrinho[p.id] || 0;
+    return `
+      <article class="produto" style="animation-delay:${i * 0.03}s">
+        ${p.antes ? '<span class="selo">OFERTA</span>' : ''}
+        <div class="foto-wrap">
+          <img src="${p.foto}" alt="${p.nome}" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="foto-fallback" style="display:none">
+            <span class="icone" aria-hidden="true">${p.emoji}</span>
+            <span>Foto do produto</span>
+          </div>
+        </div>
+        <div class="corpo">
+          <h3>${p.nome} <span class="un">/ ${p.un}</span></h3>
+          <p class="desc">${p.desc}</p>
+          <div class="precos">
+            ${p.antes ? `<span class="antes">${real(p.antes)}</span>` : ''}
+            <span class="agora ${p.antes ? 'oferta' : ''}">${real(p.preco)}</span>
+          </div>
+          <div id="acao-${p.id}">
+            ${qtd === 0
+              ? `<button class="add-btn" onclick="adicionar(${p.id})" aria-label="Adicionar ${escapeHTML(p.nome)} à comanda">Adicionar</button>`
+              : `<div class="stepper"><button onclick="remover(${p.id})" aria-label="Remover uma unidade de ${escapeHTML(p.nome)}">−</button><span aria-live="polite">${qtd}</span><button onclick="adicionar(${p.id})" aria-label="Adicionar mais uma unidade de ${escapeHTML(p.nome)}">+</button></div>`}
+          </div>
+        </div>
+      </article>
+    `;
+  }).join('');
+}
+
+function adicionar(id){
+  carrinho[id] = (carrinho[id] || 0) + 1;
+  pulsarContador();
+  renderizarGrade();
+  renderizarDrawer();
+}
+function remover(id){
+  const n = (carrinho[id] || 0) - 1;
+  if (n <= 0) delete carrinho[id]; else carrinho[id] = n;
+  renderizarGrade();
+  renderizarDrawer();
+}
+function totalItensCarrinho(){ return Object.values(carrinho).reduce((s,q)=>s+q,0); }
+function totalValorCarrinho(){
+  return Object.entries(carrinho).reduce((s,[id,q]) => {
+    const p = PRODUTOS.find(p => p.id === +id);
+    return s + (p ? p.preco * q : 0);
+  }, 0);
+}
+function pulsarContador(){
+  const b = document.getElementById('contadorComanda');
+  b.classList.remove('pulso'); void b.offsetWidth; b.classList.add('pulso');
+}
+
+function renderizarDrawer(){
+  document.getElementById('contadorComanda').textContent = totalItensCarrinho();
+  const itens = Object.entries(carrinho).map(([id,q]) => ({ ...PRODUTOS.find(p => p.id === +id), qtd:q })).filter(i => i.qtd > 0);
+  const corpo = document.getElementById('drawerCorpo');
+  const rodape = document.getElementById('drawerRodape');
+
+  if (itens.length === 0){
+    corpo.innerHTML = `<div class="vazio"><div class="icone">🧾</div><p style="font-weight:700;color:#0c2464">Comanda vazia</p><p style="font-size:.85rem;margin-top:4px">Adicione produtos e finalize pelo WhatsApp.</p></div>`;
+    rodape.style.display = 'none';
+    return;
+  }
+
+  corpo.innerHTML = itens.map(i => `
+    <div class="item-carrinho">
+      <div class="foto-mini">
+        <img src="${i.foto}" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'; this.parentElement.textContent='${i.emoji}';">
+      </div>
+      <div class="item-info">
+        <div class="nome">${i.nome} <span style="font-weight:400;font-size:.76rem;color:#69707e">/ ${i.un}</span></div>
+        <div class="sub">${real(i.preco)} × ${i.qtd} = <strong>${real(i.preco * i.qtd)}</strong></div>
+      </div>
+      <div class="mini-stepper">
+        <button onclick="remover(${i.id})" aria-label="Remover uma unidade de ${escapeHTML(i.nome)}">−</button>
+        <span aria-live="polite">${i.qtd}</span>
+        <button onclick="adicionar(${i.id})" aria-label="Adicionar mais uma unidade de ${escapeHTML(i.nome)}">+</button>
+      </div>
+    </div>
+  `).join('') + `
+    <div style="margin-top:16px">
+      <label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:8px">Como você quer receber?</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <button type="button" id="btnRetirada" onclick="selecionarForma('retirada')" class="btn-forma">🏬 Retirar na loja</button>
+        <button type="button" id="btnEntrega" onclick="selecionarForma('entrega')" class="btn-forma">🚚 Entrega em casa</button>
+      </div>
+      <div id="campoEndereco" style="display:none;margin-top:10px">
+        <label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:4px">Endereço de entrega</label>
+        <textarea id="enderecoEntrega" rows="2" placeholder="Rua, número, bairro, ponto de referência…" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--linha);font-family:inherit;font-size:.88rem;resize:vertical"></textarea>
+      </div>
+    </div>
+    <div style="margin-top:14px">
+      <label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:4px">Observação (opcional)</label>
+      <textarea id="observacao" rows="2" placeholder="Ex: carne bem limpa, entregar após as 14h…"></textarea>
+    </div>
+  `;
+  atualizarBotoesForma();
+
+  rodape.style.display = 'block';
+  document.getElementById('totalValor').textContent = real(totalValorCarrinho());
+}
+
+let formaEntrega = 'retirada';
+
+function selecionarForma(tipo){
+  formaEntrega = tipo;
+  atualizarBotoesForma();
+  document.getElementById('campoEndereco').style.display = tipo === 'entrega' ? 'block' : 'none';
+}
+
+function atualizarBotoesForma(){
+  const r = document.getElementById('btnRetirada');
+  const e = document.getElementById('btnEntrega');
+  if (!r || !e) return;
+  r.classList.toggle('ativo', formaEntrega === 'retirada');
+  e.classList.toggle('ativo', formaEntrega === 'entrega');
+}
+
+function esvaziarCarrinho(){ carrinho = {}; formaEntrega = 'retirada'; renderizarGrade(); renderizarDrawer(); }
+function abrirDrawer(){
+  document.getElementById('overlay').classList.add('aberto');
+  document.getElementById('drawer').classList.add('aberto');
+  document.body.style.overflow='hidden';
+  document.getElementById('drawer').focus();
+}
+function fecharDrawer(){
+  document.getElementById('overlay').classList.remove('aberto');
+  document.getElementById('drawer').classList.remove('aberto');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && document.getElementById('drawer').classList.contains('aberto')) fecharDrawer();
+});
+
+function enviarPedido(){
+  const itens = Object.entries(carrinho).map(([id,q]) => ({ ...PRODUTOS.find(p => p.id === +id), qtd:q })).filter(i => i.qtd > 0);
+  if (itens.length === 0) return;
+  let msg = "*Novo pedido — Site Lubachesky*\n\n";
+  itens.forEach(i => { msg += `• ${i.qtd}x ${i.nome} (${i.un}) — ${real(i.preco)} = ${real(i.preco * i.qtd)}\n`; });
+  msg += `\n*Total: ${real(totalValorCarrinho())}*`;
+
+  if (formaEntrega === 'entrega'){
+    msg += `\n\n*Forma de recebimento:* 🚚 Entrega em casa`;
+    const end = document.getElementById('enderecoEntrega');
+    if (end && end.value.trim()) msg += `\n*Endereço:* ${end.value.trim()}`;
+    else msg += `\n_(endereço a combinar)_`;
+  } else {
+    msg += `\n\n*Forma de recebimento:* 🏬 Retirada na loja`;
+  }
+
+  const obs = document.getElementById('observacao');
+  if (obs && obs.value.trim()) msg += `\n\n*Observação:* ${obs.value.trim()}`;
+  msg += `\n\n_Aguardo a confirmação dos itens e do total. Obrigado!_`;
+  window.open(`https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(msg)}`, "_blank");
+}
+
+renderizarGrade();
+renderizarDrawer();
+</script>
+
+</body>
+</html>
